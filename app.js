@@ -16,7 +16,7 @@ let recordUtteranceScript = [
    },
    {
       "RecordUtterance" : {
-         "actionUrl" : "<TBD>/hangup",
+         "actionUrl" : "https://perserver-app.herokuapp.com/hangup",
          "silenceTimeoutMs" : 2500,
          "maxLengthSec" : 60,
          "finishOnKey" : "#"
@@ -37,7 +37,7 @@ app.use(bodyParser.json())
 
 app.post('/recordUtterance', function(req, res) {
 	console.log(`new call received on recordUtterance endpoint: ${JSON.stringify(req.body)}`)
-	
+
 	console.log(`Sending recordUtteranceScript script: ${JSON.stringify(recordUtteranceScript)}`)
 	res.send(recordUtteranceScript)
 })
