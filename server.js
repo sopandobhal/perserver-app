@@ -1,4 +1,4 @@
 const app = require('./app')
-app.listen(1337, function () {
+app.listen(process.env.PORT || 5000, function () {
 	console.log("server running")
 })
