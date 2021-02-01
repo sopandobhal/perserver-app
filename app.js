@@ -19,7 +19,8 @@ let recordUtteranceScript = [
          "actionUrl" : "https://perserver-app.herokuapp.com/hangup",
          "silenceTimeoutMs" : 2500,
          "maxLengthSec" : 60,
-         "finishOnKey" : "#"
+         "finishOnKey" : "#",
+         "privacyMode": true
       }
    }
 ]
@@ -45,7 +46,7 @@ app.post('/recordUtterance', function(req, res) {
 app.post('/hangup', function (req, res){
 	console.log(`hangup url invoked: ${JSON.stringify(req.body)}`)
 
-	hangUpScript.callId = req.body.callId
+	hangUpScript[0].Hangup.callId = req.body.callId
 	console.log(`Sending Hangup script: ${JSON.stringify(hangUpScript)}`)
 
 	res.send(hangUpScript)
