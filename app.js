@@ -1,7 +1,7 @@
 //Dependencies
 const express = require('express')
 const fs = require('fs-extra')
-const bodyParser = require('bodyParser')
+const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
 // setup initial global state
