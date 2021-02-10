@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 
 let hangUpScript = [{"Hangup": {"callId": "replaceVal:CallId", "reason": "timeout"}}]
-let recordUtteranceScript = [
+let privteRecordUtteranceScript = [
    {
       "Say" : {
          "text" : "Please leave a message after the beep."
@@ -22,17 +22,41 @@ let recordUtteranceScript = [
    }
 ]
 
+let protectedRecordUtteranceScript = [
+   {
+      "Say" : {
+         "text" : "Please leave a message after the beep."
+      }
+   },
+   {
+      "RecordUtterance" : {
+         "actionUrl" : "https://perserver-app.herokuapp.com/hangup",
+         "silenceTimeoutMs" : 2500,
+         "maxLengthSec" : 60,
+         "finishOnKey" : "#",
+         "privacyMode": false
+      }
+   }
+]
+
 // Create server
 const app = express()
 
 
 app.use(bodyParser.json())
 
-app.post('/recordUtterance', function(req, res) {
-	console.log(`new call received on recordUtterance endpoint: ${JSON.stringify(req.body)}`)
+app.post('/privateRecordUtterance', function(req, res) {
+	console.log(`new call received on privateRecordUtterance endpoint: ${JSON.stringify(req.body)}`)
 
-	console.log(`Sending recordUtteranceScript script: ${JSON.stringify(recordUtteranceScript)}`)
-	res.send(recordUtteranceScript)
+	console.log(`Sending privteRecordUtteranceScript script: ${JSON.stringify(privteRecordUtteranceScript)}`)
+	res.send(privteRecordUtteranceScript)
+})
+
+app.post('/protectedRecordUtterance', function(req, res) {
+   console.log(`new call received on protectedRecordUtterance endpoint: ${JSON.stringify(req.body)}`)
+
+   console.log(`Sending protectedRecordUtteranceScript script: ${JSON.stringify(protectedRecordUtteranceScript)}`)
+   res.send(protectedRecordUtteranceScript)
 })
 
 app.post('/hangup', function (req, res){
